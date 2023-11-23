@@ -10,7 +10,7 @@ Project database is arranged according to [diagram](https://dbdiagram.io/d/Resta
 
 You can use below credentials to login:
 
-username: user
+username: admin
 
 password: 1qazcde3
 
