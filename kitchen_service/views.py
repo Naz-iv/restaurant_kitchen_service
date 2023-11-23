@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -28,8 +29,9 @@ from kitchen_service.models import Dish, Ingredient, DishType
 
 
 @login_required()
-def index(request):
+def index(request: HttpRequest) -> HttpResponse:
     search_input = ""
+    print(request.method == "POST")
 
     if request.method == "POST":
         form = HomeSearchForm(request.POST)
@@ -149,14 +151,12 @@ class CookListView(LoginRequiredMixin, ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        username = self.request.GET.get("username")
+        username = self.request.GET.get("name")
         queryset = get_user_model().objects.all()
 
         if username:
             return queryset.filter(
-                Q(username__icontains=username)
-                | Q(first_name__icontains=username)
-                | Q(last_name__icontains=username)
+                username__icontains=username
             )
         return queryset
 
