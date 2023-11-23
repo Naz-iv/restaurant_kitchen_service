@@ -27,7 +27,7 @@ from kitchen_service.forms import (
 from kitchen_service.models import Dish, Ingredient, DishType
 
 
-@login_required(login_url="/login/")
+@login_required()
 def index(request):
     search_input = ""
 
@@ -144,7 +144,7 @@ class DishDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("kitchen_service:dish-list")
 
 
-class CookListView(ListView):
+class CookListView(LoginRequiredMixin, ListView):
     model = get_user_model()
     paginate_by = 6
 
@@ -278,6 +278,6 @@ class DishTypeUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("kitchen_service:dish-type-list")
 
 
-class DishTypeDeleteView(DeleteView):
+class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
     model = DishType
     success_url = reverse_lazy("kitchen_service:dish-type-list")

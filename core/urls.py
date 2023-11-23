@@ -23,6 +23,6 @@ from core import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("kitchen_service.urls", namespace="kitchen_service")),
-    path("", include("django.contrib.auth.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
