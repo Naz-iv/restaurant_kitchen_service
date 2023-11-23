@@ -137,7 +137,7 @@ class CookListTest(TestCase):
                 password="test_password",
             )
 
-        response = self.client.get(COOK_LIST_URL + "?name=1")
+        response = self.client.get(COOK_LIST_URL + "?username=1")
         self.assertEqual(response.context["cook_list"].count(), 3)
 
 

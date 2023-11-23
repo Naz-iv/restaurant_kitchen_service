@@ -151,7 +151,7 @@ class CookListView(LoginRequiredMixin, ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        username = self.request.GET.get("name")
+        username = self.request.GET.get("username")
         queryset = get_user_model().objects.all()
 
         if username:
