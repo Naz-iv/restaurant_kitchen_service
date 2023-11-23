@@ -1,5 +1,5 @@
 # Restaurant Kitchen Service
-<hr>
+
 Django project for restaurant kitchen management
 
 Project database is arranged according to [diagram](https://dbdiagram.io/d/Restaurant-Kitchen-Service-655d00bc3be1495787750044)
