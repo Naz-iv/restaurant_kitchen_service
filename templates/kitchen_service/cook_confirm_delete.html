@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% load i18n %}
+
+{% block greeting %}
+  <br>
+  <h1 class="text-danger">PROCEED WITH CAUTION!</h1>
+  <hr>
+{% endblock %}
+{% block content %}
+  <h2>Are you sure you want to delete cook with username <span class="text-danger">{{ cook.username.upper }}</span>?</h2>
+  <br>
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <input type="submit" value="Yes" class="btn btn-danger">
+    <a href="{% url 'kitchen_service:cook-detail' pk=cook.id %}">
+      <button type="button" class="btn btn-secondary">Cancel</button>
+    </a>
+  </form>
+
+  <br>
+  <br>
+{% endblock %}

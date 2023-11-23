@@ -1,0 +1,10 @@
+body {
+    height: 92.2vh;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.container-fluid, .row {
+    height: 100%;
+}

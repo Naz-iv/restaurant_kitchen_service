@@ -1,0 +1,52 @@
+{% load static %}
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width:16.6%">
+  <div>
+    {% if user.is_authenticated %}
+      <hr>
+      <a href="{% url 'kitchen_service:cook-detail' pk=user.id %}"
+         class="d-flex align-items-left text-white text-decoration-none fs-5">
+        <img src="{% static 'icons/user.png' %}" alt="user.png" width="42" height="42"
+             class="rounded-circle me-2">
+        {{ user.username.capitalize }}{% if user.first_name and user.last_name %}: {{ user.first_name }}
+          {{ user.last_name }}{% endif %}
+      </a>
+      <hr>
+    {% endif %}
+  </div>
+  <ul class="nav nav-pills flex-column mb-auto fs-4">
+    <li class="nav-item">
+      <a href="/" class="nav-link text-white {% if request.path == '/' %}active{% endif %}" aria-current="page">
+        <img class="bi me-2" width="20" height="20" src="{% static 'icons/home.png' %}" alt="home.png">
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'kitchen_service:dish-list' %}"
+         class="nav-link text-white {% if request.path == "/dishes/" %}active{% endif %}">
+        <img class="bi me-2" width="20" height="20" src="{% static 'icons/dish.png' %}" alt="dish.png">
+        Dishes
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'kitchen_service:dish-type-list' %}"
+         class="nav-link text-white {% if request.path == "/dish-types/" %}active{% endif %}">
+        <img class="bi me-2" width="20" height="20" src="{% static 'icons/dish_type.png' %}" alt="dish_type.png">
+        Dish Types
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'kitchen_service:cook-list' %}"
+         class="nav-link text-white {% if request.path == "/cooks/" %}active{% endif %}">
+        <img class="bi me-2" width="20" height="20" src="{% static 'icons/cook.png' %}" alt="cook.png">
+        Cooks
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'kitchen_service:ingredient-list' %}"
+         class="nav-link text-white {% if request.path == "/ingredients/" %}active{% endif %}">
+        <img class="bi me-2" width="20" height="20" src="{% static 'icons/ingredients.png' %}" alt="ingredients.png">
+        Ingredients
+      </a>
+    </li>
+  </ul>
+</div>

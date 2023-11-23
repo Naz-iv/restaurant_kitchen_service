@@ -1,0 +1,66 @@
+{% extends "index.html" %}
+{% load crispy_forms_filters %}
+{% load get_length %}
+
+{% block greeting %}
+  <div
+      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="pb-2 border-bottom">Kitchen Service Dish Type List</h1>
+    <form action="" method="get">
+      {{ search_form|crispy }}
+      <input class="btn btn-sm btn-outline-secondary" type="submit" value="Search on this page">
+    </form>
+    {% if user.is_authenticated %}
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+          <a href="{% url 'kitchen_service:dish-create' %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Add dish</button>
+          </a>
+          <a href="{% url 'kitchen_service:ingredient-create' %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Add ingredients</button>
+          </a>
+          <a href="{% url 'kitchen_service:dish-type-create' %}">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Add dish type</button>
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for dishtype in dishtype_list %}
+          <div class="col">
+            <div class="card shadow-sm">
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+                   role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                   focusable="false"><title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c"></rect>
+                <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ dishtype.name }}.png</text>
+              </svg>
+
+              <div class="card-body">
+                <h4 class="card-text">{{ dishtype.name }}</h4>
+                <p class="card-text">Dishes in this category: {{ dishtype.dishes.all|get_length }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="{% url 'kitchen_service:dish-type-detail' pk=dishtype.id %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    </a>
+                    <a href="{% url 'kitchen_service:dish-type-update' pk=dishtype.id %}">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Update</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
