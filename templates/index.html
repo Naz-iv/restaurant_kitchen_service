@@ -33,100 +33,115 @@
   {% endblock %}
 
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    {% block content %}
+    {% block greeting %}
       <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="pb-2 border-bottom">Welcome to Restaurant Kitchen Service</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <a href="{% url 'kitchen_service:dish-create' %}">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Add dish</button>
-            </a>
-            <a href="{% url 'kitchen_service:ingredient-create' %}">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Add ingredients</button>
-            </a>
+        {% if user.is_authenticated %}
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+              <a href="{% url 'kitchen_service:dish-create' %}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Add dish</button>
+              </a>
+              <a href="{% url 'kitchen_service:ingredient-create' %}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Add ingredients</button>
+              </a>
+              <a href="{% url 'kitchen_service:dish-type-create' %}">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Add dish type</button>
+              </a>
+            </div>
           </div>
+        {% endif %}
+      </div>
+    {% endblock %}
+    {% block content %}
+      {% if not search_input %}
+        <div class="container px-4 py-5" id="featured-3">
+          <h2 class="pb-2 border-bottom">Your Ultimate Solution for Efficient Kitchen Management</h2>
+          <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="feature col">
+              <div class="feature-icon bg-primary bg-gradient">
+                <img src="{% static 'icons/featured_cook.png' %}" alt="featured_cook.png" width="410" height="210">
+              </div>
+              <h3>The most experienced cook</h3>
+              <ul class="list-unstyled">
+                <li>
+                  <h6>Name: {{ stat_data.featured_cook.first_name }} {{ stat_data.featured_cook.last_name }}</h6>
+                </li>
+                <li>
+                  <h6>Year{{ stat_data.featured_cook.years_of_experience|pluralize }} of
+                    experience: {{ stat_data.featured_cook.years_of_experience }}</h6>
+                </li>
+              </ul>
+              <a href="#" class="icon-link">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Click here to read more</button>
+              </a>
+            </div>
+            <div class="feature col">
+              <div class="feature-icon bg-primary bg-gradient">
+                <img src="{% static 'icons/featured_dish.png' %}" alt="featured_dish.png" width="410" height="210">
+              </div>
+              <h3>Dish menu includes</h3>
+              <ul class="list-unstyled">
+                <li>
+                  <h6>
+                    {{ stat_data.dish_type_count }} dish
+                    {% if stat_data.dish_type_count > 1 %}
+                      categories
+                    {% else %}category
+                    {% endif %}
+                  </h6>
+                </li>
+                <li>
+                  <h6>
+                    {{ stat_data.dish_count }} unique
+                    {% if stat_data.dish_count > 1 %}
+                      dishes
+                    {% else %}dish
+                    {% endif %}
+                  </h6>
+                </li>
+              </ul>
+              <a href="{% url 'kitchen_service:dish-list' %}" class="icon-link">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Click here to read more</button>
+              </a>
+            </div>
+            <div class="feature col">
+              <div class="feature-icon bg-primary bg-gradient">
+                <img src="{% static 'icons/most_expensive_dish.png' %}" alt="most_expensive_dish.png" width="410"
+                     height="210">
+              </div>
+              <h3>The most expensive dish</h3>
+              <ul class="list-unstyled">
+                <li>
+                  <h6>
+                    Title: {{ stat_data.most_expensive_dish.name }}
+                  </h6>
+                </li>
+                <li>
+                  <h6>
+                    Price: {{ stat_data.most_expensive_dish.price }}
+                  </h6>
+                </li>
+                <li>
+                  <h6>
+                    Description: {{ stat_data.most_expensive_dish.description|slice:":30" }}
+                  </h6>
+                </li>
+              </ul>
+              <a href="#" class="icon-link">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Click here to read more</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        {% include "includes/search.html" %}
+      {% endif %}
 
-        </div>
-      </div>
-      <div class="container px-4 py-5" id="featured-3">
-        <h2 class="pb-2 border-bottom">Your Ultimate Solution for Efficient Kitchen Management</h2>
-        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-          <div class="feature col">
-            <div class="feature-icon bg-primary bg-gradient">
-              <img src="{% static 'icons/featured_cook.png' %}" alt="featured_cook.png" width="410" height="210">
-            </div>
-            <h3>The most experienced cook</h3>
-            <ul class="list-unstyled">
-              <li>
-                <h6>Name: {{ featured_cook.first_name }} {{ featured_cook.last_name }}</h6>
-              </li>
-              <li>
-                <h6>Year{{ featured_cook.years_of_experience|pluralize }} of
-                  experience: {{ featured_cook.years_of_experience }}</h6>
-              </li>
-            </ul>
-            <a href="#" class="icon-link">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Click here to read more</button>
-            </a>
-          </div>
-          <div class="feature col">
-            <div class="feature-icon bg-primary bg-gradient">
-              <img src="{% static 'icons/featured_dish.png' %}" alt="featured_dish.png" width="410" height="210">
-            </div>
-            <h3>Dish menu includes</h3>
-            <ul class="list-unstyled">
-              <li>
-                <h6>
-                  {{ dish_type_count }} dish
-                  {% if dish_type_count > 1 %}
-                    categories
-                  {% else %}category
-                  {% endif %}
-                </h6>
-              </li>
-              <li>
-                <h6>
-                  {{ dish_count }} unique
-                  {% if dish_count > 1 %}
-                    dishes
-                  {% else %}dish
-                  {% endif %}
-                </h6>
-              </li>
-            </ul>
-            <a href="{% url 'kitchen_service:dish-list' %}" class="icon-link">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Click here to read more</button>
-            </a>
-          </div>
-          <div class="feature col">
-            <div class="feature-icon bg-primary bg-gradient">
-              <img src="{% static 'icons/most_expensive_dish.png' %}" alt="most_expensive_dish.png" width="410" height="210">
-            </div>
-            <h3>The most expensive dish</h3>
-            <ul class="list-unstyled">
-              <li>
-                <h6>
-                  Title: {{ most_expensive_dish.name }}
-                </h6>
-              </li>
-              <li>
-                <h6>
-                  Price: {{ most_expensive_dish.price }}
-                </h6>
-              </li>
-              <li>
-                <h6>
-                  Description: {{ most_expensive_dish.description|slice:":30" }}
-                </h6>
-              </li>
-            </ul>
-            <a href="{% url 'kitchen_service:dish-detail' pk=most_expensive_dish.id %}" class="icon-link">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Click here to read more</button>
-            </a>
-          </div>
-        </div>
-      </div>
+    {% endblock %}
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
     {% endblock %}
     {% block footer %}
       {% include "includes/footer.html" %}

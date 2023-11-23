@@ -1,4 +1,23 @@
 {% extends "index.html" %}
+{% load crispy_forms_filters %}
 
+{% block content %}
+  <h1>{{ object|yesno:"Update,Create" }} dish</h1>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
 
-<h1>Dish create</h1>
+    {{ formset.management_form }}
+    {% for form in formset.forms %}
+      <div id="formset-container">
+        {{ form.as_table }}
+      </div>
+    {% endfor %}
+    <input type="submit" value="Save" class="btn btn-sm btn-outline-secondary">
+    <a href="{% url 'kitchen_service:dish-list' %}">
+      <button type="button" class="btn btn-sm btn-outline-secondary">Cancel</button>
+    </a>
+  </form>
+  <br>
+
+{% endblock %}

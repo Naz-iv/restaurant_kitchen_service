@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "bootstrap5",
     "crispy_forms",
     "debug_toolbar",
-    "kitchen_service.apps.KitchenConfig"
+    "kitchen_service.apps.KitchenConfig",
+    "kitchen_service.templatetags"
 ]
 
 MIDDLEWARE = [
@@ -70,6 +71,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "kitchen_service.context_processors.stats_context_processor"
             ],
         },
     },

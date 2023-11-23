@@ -1,4 +1,53 @@
 {% extends "index.html" %}
+{% load get_length %}
 
+{% block greeting %}
+  <div
+      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="pb-2 border-bottom">Information about ingredient: {{ ingredient.name }}</h1>
+    {% if user.is_authenticated %}
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+          {% if user.is_superuser or user.id == cook.id %}
+            <a href="{% url 'kitchen_service:ingredient-update' pk=ingredient.id %}">
+              <button type="button" class="btn btn-sm btn-outline-secondary">Update information</button>
+            </a>
+            <a href="{% url 'kitchen_service:ingredient-delete' pk=ingredient.id %}">
+              <button type="button" class="btn btn-sm btn-outline-secondary">Delete ingredient</button>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
 
-<h1>ingredient detail</h1>
+{% block content %}
+  <h3 class="pb-2 border-bottom">{{ ingredient.name.title }} is used in {{ ingredient.dishes.all|get_length }}
+    dish{{ ingredient.dishes.all|get_length|pluralize }}</h3>
+  <hr>
+  <h3>{{ ingredient.name.title }} included  in following dishes:</h3>
+  <hr>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Dish title</th>
+        <th scope="col">Dish price</th>
+        <th scope="col">Dish description</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for dish_ingredient in ingredient.dishes.all %}
+        <tr>
+          <td><a class="text-muted" href="{% url 'kitchen_service:dish-detail' pk=dish_ingredient.dish.id %}">{{ dish_ingredient.dish.id }}</a></td>
+          <td><a class="text-muted" href="{% url 'kitchen_service:dish-detail' pk=dish_ingredient.dish.id %}">{{ dish_ingredient.dish.name }}</a></td>
+          <td>{{ dish_ingredient.dish.price }}</td>
+          <td>{{ dish_ingredient.dish.description }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

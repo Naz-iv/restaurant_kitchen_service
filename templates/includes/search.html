@@ -1,0 +1,97 @@
+<h2 class="pb-2 border-bottom">Search results for: {{ search_input }}</h2>
+{% if cook_search %}
+  <h4 class="pb-2 border-bottom">Cooks:</h4>
+  <table class="table table-striped table-sm">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Username</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Years of experience</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for cook in cook_search %}
+      <tr>
+        <td><a class="text-muted" href="{% url 'kitchen_service:cook-detail' pk=cook.id %}">{{ cook.id }}</a>
+        </td>
+        <td><a class="text-muted"
+               href="{% url 'kitchen_service:cook-detail' pk=cook.id %}">{{ cook.username }}</a></td>
+        <td>{{ cook.first_name }}</td>
+        <td>{{ cook.last_name }}</td>
+        <td>{{ cook.years_of_experience }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% if dish_search %}
+  <h4 class="pb-2 border-bottom">Dishes:</h4>
+  <table class="table table-striped table-sm">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for dish in dish_search %}
+      <tr>
+        <td><a class="text-muted" href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">{{ dish.id }}</a>
+        </td>
+        <td><a class="text-muted"
+               href="{% url 'kitchen_service:dish-detail' pk=dish.id %}">{{ dish.name }}</a></td>
+        <td>{{ dish.dish_type }}</td>
+        <td>{{ dish.price }}</td>
+        <td>{{ dish.description }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% if ingredient_search %}
+  <h4 class="pb-2 border-bottom">Ingredients:</h4>
+  <table class="table table-striped table-sm">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for ingredient in ingredient_search %}
+      <tr>
+        <td><a class="text-muted" href="{% url 'kitchen_service:ingredient-detail' pk=ingredient.id %}">{{ ingredient.id }}</a>
+        </td>
+        <td><a class="text-muted"
+               href="{% url 'kitchen_service:ingredient-detail' pk=ingredient.id %}">{{ ingredient.name }}</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% if dishtype_search %}
+  <h4 class="pb-2 border-bottom">Dish types:</h4>
+  <table class="table table-striped table-sm">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for dishtype in dishtype_search %}
+      <tr>
+        <td><a class="text-muted" href="{% url 'kitchen_service:dish-type-detail' pk=dishtype.id %}">{{ dishtype.id }}</a>
+        </td>
+        <td><a class="text-muted"
+               href="{% url 'kitchen_service:dish-type-detail' pk=dishtype.id %}">{{ dishtype.name }}</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

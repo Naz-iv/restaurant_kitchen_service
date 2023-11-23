@@ -11,6 +11,9 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name',)
+
 
 class Unit(models.Model):
     name = models.CharField(
@@ -41,6 +44,7 @@ class DishType(models.Model):
     class Meta:
         verbose_name = "dish type"
         verbose_name_plural = "dish types"
+        ordering = ('name',)
 
 
 class Cook(AbstractUser):
@@ -54,8 +58,10 @@ class Cook(AbstractUser):
 
 
 class DishIngredient(models.Model):
-    dish = models.ForeignKey("Dish", on_delete=models.CASCADE, related_name="ingredients")
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name="dishes")
+    dish = models.ForeignKey("Dish", on_delete=models.CASCADE,
+                             related_name="ingredients")
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE,
+                                   related_name="dishes")
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
     quantity = models.FloatField()
 
@@ -67,8 +73,9 @@ class DishIngredient(models.Model):
 class Dish(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    price = models.DecimalField(max_digits=7, decimal_places=2, validators=[MinValueValidator(0.0)])
-    dish_type = models.ForeignKey(DishType, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=7, decimal_places=2,
+                                validators=[MinValueValidator(0.0)])
+    dish_type = models.ForeignKey(DishType, on_delete=models.CASCADE, related_name="dishes")
     cook = models.ManyToManyField(AUTH_USER_MODEL, related_name="dishes")
 
     def __str__(self):
@@ -76,3 +83,4 @@ class Dish(models.Model):
 
     class Meta:
         verbose_name_plural = "dishes"
+        ordering = ("name",)

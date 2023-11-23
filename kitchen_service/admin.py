@@ -55,7 +55,8 @@ class CookAdmin(UserAdmin):
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = admin.ModelAdmin.list_display + ("dish_type", "price", "description")
+    list_display = (admin.ModelAdmin.list_display
+                    + ("dish_type", "price", "description"))
     list_filter = ("dish_type", "price")
     search_fields = ("dish__name",)
 
