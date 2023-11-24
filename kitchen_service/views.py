@@ -88,7 +88,7 @@ class DishListView(LoginRequiredMixin, ListView):
 
 class DishDetailView(LoginRequiredMixin, DetailView):
     model = Dish
-    queryset = Dish.objects.prefetch_related("ingredients", "cook")
+    queryset = Dish.objects.prefetch_related("ingredients__ingredient", "ingredients__unit", "cook")
 
 
 class DishCreateView(LoginRequiredMixin, CreateView):
@@ -173,7 +173,7 @@ class CookListView(LoginRequiredMixin, ListView):
 class CookDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = "kitchen_service/cook_detail.html"
-    queryset = get_user_model().objects.prefetch_related("dishes")
+    queryset = get_user_model().objects.prefetch_related("dishes", "dishes__dish_type")
 
 
 class CookCreateView(LoginRequiredMixin, CreateView):
@@ -244,7 +244,7 @@ class DishTypeListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         name = self.request.GET.get("name")
-        queryset = DishType.objects.all()
+        queryset = DishType.objects.prefetch_related("dishes")
 
         if name:
             return queryset.filter(name__icontains=name)
