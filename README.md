@@ -26,7 +26,6 @@ python3 -m venv venv
 source venv/Script/activate
 pip install -r requirements.txt
 python manage.py migrate
-pyhton loaddata kitchen_service_db_data.json
 python manage.py runserver
 ```
 
