@@ -25,7 +25,6 @@ cd restaurant_kitchen_service
 python3 -m venv venv
 source venv/Script/activate
 pip install -r requirements.txt
-python manage.py migrate
 python manage.py runserver
 ```
 
