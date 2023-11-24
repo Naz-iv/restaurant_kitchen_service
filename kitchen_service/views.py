@@ -39,25 +39,38 @@ def index(request: HttpRequest) -> HttpResponse:
     else:
         form = HomeSearchForm()
 
+    dishes = Dish.objects.distinct().order_by("-price")
+    cooks = get_user_model().objects.order_by("-years_of_experience")
+    dishtypes = DishType.objects.distinct()
+    ingredients = Ingredient.objects.all()
+
     context = {
-        "form": form
+        "form": form,
+        "dish_type_count": dishtypes.count(),
+        "dish_count": dishes.count(),
+
     }
 
     if search_input:
-        cook_search = get_user_model().objects.filter(
+        cook_search = cooks.filter(
             Q(username__icontains=search_input)
             | Q(first_name__icontains=search_input)
             | Q(last_name__icontains=search_input)
         )
-        dish_search = Dish.objects.filter(name__icontains=search_input)
-        ingredient_search = Ingredient.objects.filter(name__icontains=search_input)
-        dishtype_search = DishType.objects.filter(name__icontains=search_input)
+        dish_search = dishes.filter(name__icontains=search_input)
+        ingredient_search = ingredients.filter(name__icontains=search_input)
+        dishtype_search = dishtypes.filter(name__icontains=search_input)
 
         context["cook_search"] = cook_search
         context["dish_search"] = dish_search
         context["ingredient_search"] = ingredient_search
         context["dishtype_search"] = dishtype_search
         context["search_input"] = search_input
+    else:
+        if cooks:
+            context["featured_cook"] = cooks[0]
+        if dishes:
+            context["most_expensive_dish"] = dishes[0]
 
     return render(request, "index.html", context=context)
 
