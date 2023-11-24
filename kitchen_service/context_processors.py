@@ -14,7 +14,7 @@ def stats_context_processor(request:HttpRequest) -> dict:
     cooks = get_user_model().objects.order_by("-years_of_experience")
     dishes = Dish.objects.order_by("-price")
     if cooks:
-        stat_data["cooks"] = cooks[0]
+        stat_data["featured_cook"] = cooks[0]
 
     if dishes:
         stat_data["dishes"] = dishes[0]
