@@ -94,7 +94,7 @@ DATABASES = {
 }
 
 # Settings for Postgres database
-DATABASE_URL = postgres://hzxqpcjb:Bc5iuYryBnkQWbQeYhGBSdiuo9kTfFM_@cornelius.db.elephantsql.com/hzxqpcjb
+DATABASE_URL = "postgres://hzxqpcjb:Bc5iuYryBnkQWbQeYhGBSdiuo9kTfFM_@cornelius.db.elephantsql.com/hzxqpcjb"
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
