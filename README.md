@@ -8,6 +8,7 @@ Project database is arranged according to [diagram](https://dbdiagram.io/d/Resta
 
 ## Check it out
 
+[Restaurant Kitchen Service deployed to Render](https://restaurantkitchenservice-ir76.onrender.com)
 You can use below credentials to login:
 
 username: admin
