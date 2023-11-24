@@ -31,7 +31,6 @@ from kitchen_service.models import Dish, Ingredient, DishType
 @login_required()
 def index(request: HttpRequest) -> HttpResponse:
     search_input = ""
-    print(request.method == "POST")
 
     if request.method == "POST":
         form = HomeSearchForm(request.POST)

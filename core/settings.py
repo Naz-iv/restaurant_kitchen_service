@@ -20,15 +20,19 @@ CORE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-z0%+enw=6tr@l7w9djf(jv#qrgbveh&+e!q#yndnzjhru8#i70"
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-z0%+enw=6tr@l7w9djf(jv#qrgbveh&+e!q#yndnzjhru8#i70"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
+
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 # Assets Management
-ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
-
-ALLOWED_HOSTS = []
+ASSETS_ROOT = os.getenv("ASSETS_ROOT", "/static/assets")
 
 # Application definition
 
@@ -147,3 +151,5 @@ INTERNAL_IPS = [
     "localhost",
     "127.0.0.1",
 ]
+
+LOGIN_REDIRECT_URL = "/"
