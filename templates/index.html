@@ -65,14 +65,14 @@
               <h3>The most experienced cook</h3>
               <ul class="list-unstyled">
                 <li>
-                  <h6>Name: {{ stat_data.featured_cook.first_name }} {{ stat_data.featured_cook.last_name }}</h6>
+                  <h6>Name: {{ featured_cook.first_name }} {{ featured_cook.last_name }}</h6>
                 </li>
                 <li>
-                  <h6>Year{{ stat_data.featured_cook.years_of_experience|pluralize }} of
-                    experience: {{ stat_data.featured_cook.years_of_experience }}</h6>
+                  <h6>Year{{ featured_cook.years_of_experience|pluralize }} of
+                    experience: {{ featured_cook.years_of_experience }}</h6>
                 </li>
               </ul>
-              <a href="#" class="icon-link">
+              <a href="{% url 'kitchen_service:cook-detail' pk=featured_cook.id %}" class="icon-link">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Click here to read more</button>
               </a>
             </div>
@@ -84,8 +84,8 @@
               <ul class="list-unstyled">
                 <li>
                   <h6>
-                    {{ stat_data.dish_type_count }} dish
-                    {% if stat_data.dish_type_count > 1 %}
+                    {{ dish_type_count }} dish
+                    {% if dish_type_count > 1 %}
                       categories
                     {% else %}category
                     {% endif %}
@@ -93,8 +93,8 @@
                 </li>
                 <li>
                   <h6>
-                    {{ stat_data.dish_count }} unique
-                    {% if stat_data.dish_count > 1 %}
+                    {{ dish_count }} unique
+                    {% if dish_count > 1 %}
                       dishes
                     {% else %}dish
                     {% endif %}
@@ -114,21 +114,21 @@
               <ul class="list-unstyled">
                 <li>
                   <h6>
-                    Title: {{ stat_data.most_expensive_dish.name }}
+                    Title: {{ most_expensive_dish.name }}
                   </h6>
                 </li>
                 <li>
                   <h6>
-                    Price: {{ stat_data.most_expensive_dish.price }}
+                    Price: {{ most_expensive_dish.price }}
                   </h6>
                 </li>
                 <li>
                   <h6>
-                    Description: {{ stat_data.most_expensive_dish.description|slice:":30" }}
+                    Description: {{ most_expensive_dish.description|slice:":30" }}
                   </h6>
                 </li>
               </ul>
-              <a href="#" class="icon-link">
+              <a href="{% url 'kitchen_service:dish-detail' pk=most_expensive_dish.id %}" class="icon-link">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Click here to read more</button>
               </a>
             </div>
