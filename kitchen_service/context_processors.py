@@ -5,10 +5,18 @@ from kitchen_service.models import DishType, Dish
 
 
 def stats_context_processor(request:HttpRequest) -> dict:
+
     stat_data = {
-        "featured_cook": get_user_model().objects.order_by("-years_of_experience")[0],
         "dish_type_count": DishType.objects.distinct().count(),
         "dish_count": Dish.objects.distinct().count(),
-        "most_expensive_dish": Dish.objects.order_by("-price")[0]
     }
+
+    cooks = get_user_model().objects.order_by("-years_of_experience")
+    dishes = Dish.objects.order_by("-price")
+    if cooks:
+        stat_data["cooks"] = cooks[0]
+
+    if dishes:
+        stat_data["dishes"] = dishes[0]
+
     return {"stat_data": stat_data}
