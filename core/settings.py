@@ -22,7 +22,7 @@ CORE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "jwjhdiowqhidhwpiehpo2qwh3p2o3j2jr23ru92jf0d2-j")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
@@ -77,7 +77,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "kitchen_service.context_processors.stats_context_processor"
             ],
         },
     },
