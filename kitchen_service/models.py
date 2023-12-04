@@ -12,7 +12,7 @@ class Ingredient(models.Model):
         return self.name
 
     class Meta:
-        ordering = ('name',)
+        ordering = ("name",)
 
 
 class Unit(models.Model):
@@ -44,7 +44,7 @@ class DishType(models.Model):
     class Meta:
         verbose_name = "dish type"
         verbose_name_plural = "dish types"
-        ordering = ('name',)
+        ordering = ("name",)
 
 
 class Cook(AbstractUser):

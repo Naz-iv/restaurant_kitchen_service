@@ -3,12 +3,12 @@
 
 {% block content %}
   <h1>{{ object|yesno:"Update,Create" }} dish type</h1>
-  <form action="" method="post" novalidate>
+  <form action="" method="post" novalidate class="form-check-label">
     {% csrf_token %}
     {{ form|crispy }}
 
     <input type="submit" value="Submit" class="btn btn-sm btn-outline-secondary">
-    <a href="{% url 'kitchen_service:dish-list' %}">
+    <a href="{% url 'kitchen_service:dish-type-list' %}">
       <button type="button" class="btn btn-sm btn-outline-secondary">Cancel</button>
     </a>
   </form>

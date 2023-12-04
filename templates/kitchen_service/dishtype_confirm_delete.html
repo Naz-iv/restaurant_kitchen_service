@@ -13,7 +13,7 @@
     {% csrf_token %}
 
     <input type="submit" value="Yes" class="btn btn-danger">
-    <a href="{% url 'kitchen_service:dish-type-detail' pk=cook.id %}">
+    <a href="{% url 'kitchen_service:dish-type-detail' pk=dishtype.id %}">
       <button type="button" class="btn btn-secondary">Cancel</button>
     </a>
   </form>
