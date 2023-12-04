@@ -56,8 +56,8 @@ DishIngredientFormSet = inlineformset_factory(
     Dish,
     DishIngredient,
     fields=('ingredient', 'unit', 'quantity'),
-    extra=6,
-    can_delete=True,
+    extra=5,
+    can_delete=False,
 )
 
 
